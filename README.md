@@ -15,3 +15,19 @@ SHA-256 is a method to create a **unique code** 🔑 for a file based on its con
 ✅ **Real-Time Alerts** – Instantly notifies you if a file has already been downloaded.  
 ✅ **SHA-256 Hash Matching** – Uses advanced hashing to detect duplicates accurately.  
 ✅ **Works Everywhere** – Detects duplicate downloads from any website, not just specific platforms.  
+
+## How to Install  
+
+1. **Get the Extension:**  
+   - Download the source code from the repository.  
+
+2. **Add to Chrome:**  
+   - Open **Google Chrome** and go to **chrome://extensions/**  
+   - Turn on **Developer Mode** ⚙️ (top right corner).  
+   - Click **Load unpacked** and select the folder with the extension files.  
+
+
+## How It Works  
+
+- Once installed, DDAS **monitors** all your downloads.  
+- If you try to download a **duplicate file**, you’ll get a **notification** with options to manage it.  
