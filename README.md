@@ -1,53 +1,132 @@
-# Duplicate Download Alert System (DDAS)  
+# DuAlert
 
-## What is DDAS?  
-The **Duplicate Download Alert System (DDAS)** is a **Chrome extension** that helps prevent users from downloading the same file more than once. It watches your downloads and **alerts you** if you’re trying to download a file that already exists on your computer.  
+## What is DuAlert?
 
-It works by checking the **SHA-256 hash** (a unique code) of each file, so even if the file names are different but the content is the same, DDAS will recognize it as a duplicate. This helps save **storage space** 💾 and keeps your files organized 📂.  
+**DuAlert** is a Chrome extension that prevents duplicate downloads by checking your computer’s drive before a new file is downloaded. Using the File System Access API, DuAlert scans a user-selected folder on your computer, computes each file's SHA-256 hash, and compares it with the hash of the file you’re about to download. If a duplicate is detected—even if the file names differ—DuAlert cancels the download and notifies you. This process helps save storage space and reduces redundant data downloads.
 
+## What is SHA-256 Hash?
 
-#### What is SHA-256 Hash?  
-SHA-256 is a method to create a **unique code** 🔑 for a file based on its content. Even if the file name changes, its SHA-256 code stays the same. DDAS uses this to detect duplicate downloads accurately.
+SHA-256 is a cryptographic algorithm that creates a unique 64-character hexadecimal code for a file based on its content. Even if file names change, the hash remains the same, allowing DuAlert to accurately detect duplicate files.
 
+## Features
 
-## Features  
+- **Real-Time Duplicate Detection:**  
+  Monitors downloads and checks file hashes against files stored in a user-selected folder.
 
-✅ **Real-Time Alerts** – Instantly notifies you if a file has already been downloaded.  
-✅ **SHA-256 Hash Matching** – Uses advanced hashing to detect duplicates accurately.  
-✅ **Works Everywhere** – Detects duplicate downloads from any website, not just specific platforms.  
+- **File System Integration:**  
+  Uses the File System Access API to directly scan and access your computer’s drive.
 
-## How to Install  
+- **Accurate Hash Matching:**  
+  Employs SHA-256 hashing to detect duplicates even when file names differ.
 
-1. **Get the Extension:**  
-   - Download the source code from the repository.  
+- **User-Friendly Notifications:**  
+  Alerts you immediately if a duplicate file is detected, preventing unnecessary downloads.
 
-2. **Add to Chrome:**  
-   - Open **Google Chrome** and go to **chrome://extensions/**  
-   - Turn on **Developer Mode** ⚙️ (top right corner).  
-   - Click **Load unpacked** and select the folder with the extension files.  
+## How to Install
 
+### Get the Extension
 
-## How It Works  
+1. **Download or Clone the Repository:**  
+   Obtain the DuAlert source code from the repository.
 
-- Once installed, DDAS **monitors** all your downloads.  
-- If you try to download a **duplicate file**, you’ll get a **notification** with options to manage it.
-- ## Permissions Required  
+2. **Add to Chrome:**
 
-The extension needs the following permissions to work:  
+   - Open Google Chrome and navigate to `chrome://extensions/`
+   - Enable **Developer Mode** (toggle in the top right corner)
+   - Click **Load unpacked** and select the folder containing the DuAlert extension files
 
-- **downloads** – To track files being downloaded.  
-- **notifications** – To show alerts when a duplicate is found.  
-- **storage** – To remember previously downloaded file details.  
-- **host\_permissions** – Allows checking files from all websites.  
+## How It Works
 
+1. **Folder Selection:**  
+   - In the extension’s popup, click the "Select Folder" button to open a dedicated folder-picker window.
+   - Choose a folder on your computer where DuAlert will scan for existing files.
 
-## Things to Keep in Mind  
+2. **Duplicate Check Before Download:**  
+   - When a new download is initiated, DuAlert computes the SHA-256 hash of the file (using its URL or content).
+   - It then scans the user-selected folder to check if any file in that folder has the same hash.
+   
+3. **Action on Duplicate:**  
+   - If a duplicate is found, the new download is canceled automatically.
+   - A notification is displayed informing you that the file already exists on your computer.
 
-⚠ **CORS Restrictions:** Some websites block file access, so DDAS may not always be able to check file contents. In such cases, it will rely on file names and metadata.  
-⚠ **User Consent:** Since DDAS needs access to all downloads, users should understand why these permissions are required.  
+## Permissions Required
 
+DuAlert requires the following permissions to function:
 
-## Want to Contribute?  
+- **downloads:** To monitor and manage file downloads.
+- **downloads.open:** To open existing files if needed.
+- **notifications:** To alert you when a duplicate file is detected.
+- **storage:** To store metadata (including folder handles) locally.
+- **scripting:** To allow the extension to inject scripts if necessary.
+- **host_permissions:** Set to `*://*/*` to access files from any website for hashing purposes.
 
-We welcome improvements! If you want to help, **fork the repository** and submit a **pull request** with your changes.  
+## Business Model
 
+DuAlert follows a **Freemium Model**:
+
+- **Free Tier:**
+  - **Core Duplicate Detection:**  
+    Use basic duplicate detection based on file metadata and SHA-256 hash checks.
+  - **Local Storage:**  
+    Store duplicate records locally on your device with a usage limit (e.g., up to 100 duplicate checks per month).
+  - **Basic Notifications:**  
+    Receive alerts when a duplicate is detected, with an option to open the existing file.
+
+- **Premium Tier (Individual Subscription):**
+  - **Advanced Features:**  
+    - Cloud Sync: Synchronize download metadata across multiple devices.
+    - Detailed Analytics: Track download behavior and duplicate trends.
+    - Enhanced Duplicate Detection: Advanced algorithms and integrations.
+  - **Unlimited Usage:**  
+    Remove or significantly increase the monthly duplicate check limit.
+  - **Pricing:**  
+    Approximately $4.99–$9.99/month based on market research.
+
+- **Enterprise Tier:**
+  - **Custom Integrations & Admin Dashboard:**  
+    For organizations, academic institutions, or large enterprises.
+  - **Centralized Management:**  
+    Manage downloads across teams with reporting and administrative controls.
+  - **Volume Licensing & Premium Support:**  
+    Custom pricing based on user volume and service requirements.
+
+## Target Customers
+
+Potential customer segments for DuAlert include:
+
+- **Students:**  
+  High school, college, and university students who frequently download research materials and course content.
+
+- **Researchers & Academics:**  
+  Faculty members, lab technicians, and researchers managing large volumes of data.
+
+- **Freelancers & Professionals:**  
+  Designers, writers, developers, and other professionals who need efficient file management.
+
+- **Content Creators:**  
+  Bloggers, vloggers, and social media influencers who regularly download digital assets.
+
+- **Small Businesses & Corporate IT Departments:**  
+  Companies that require efficient storage management and reduced bandwidth usage.
+
+- **Government & Public Sector:**  
+  Agencies that handle extensive digital records and require streamlined data management.
+
+- **Digital Libraries & E-Learning Platforms:**  
+  Organizations managing vast digital document repositories.
+
+## Contribution
+
+Contributions are welcome! If you'd like to improve DuAlert, please fork the repository, make your changes, and submit a pull request. For major changes, please open an issue first to discuss your ideas.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions, suggestions, or contributions, please contact us via [your email/issue tracker link here].
+
+---
+
+*DuAlert helps you avoid redundant downloads, saving storage space and keeping your digital files organized—all with the power of advanced file hashing and seamless integration with your computer’s drive.*
