@@ -116,3 +116,5 @@ chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) =
   // Clear the mapping for this notification.
   delete duplicateNotifications[notificationId];
 });
+
+
