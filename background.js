@@ -91,3 +91,28 @@ chrome.downloads.onChanged.addListener(function(delta) {
   }
 });
 
+
+// ---------------------
+// Notification Button Click Handler
+// ---------------------
+chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) => {
+  const mapping = duplicateNotifications[notificationId];
+  if (!mapping) {
+    console.error("No mapping found for notification:", notificationId);
+    return;
+  }
+  // Since there's only one button, we assume buttonIndex === 0
+  chrome.downloads.cancel(mapping.newId, function() {
+    if (chrome.runtime.lastError) {
+      console.error("Error canceling new download:", chrome.runtime.lastError);
+    } else {
+      chrome.downloads.open(mapping.existingId, function() {
+        if (chrome.runtime.lastError) {
+          console.error("Error opening existing file:", chrome.runtime.lastError);
+        }
+      });
+    }
+  });
+  // Clear the mapping for this notification.
+  delete duplicateNotifications[notificationId];
+});
