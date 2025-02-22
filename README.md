@@ -119,9 +119,6 @@ Potential customer segments for DuAlert include:
 
 Contributions are welcome! If you'd like to improve DuAlert, please fork the repository, make your changes, and submit a pull request. For major changes, please open an issue first to discuss your ideas.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
