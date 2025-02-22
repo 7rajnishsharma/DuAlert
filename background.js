@@ -91,7 +91,6 @@ chrome.downloads.onChanged.addListener(function(delta) {
   }
 });
 
-
 // ---------------------
 // Notification Button Click Handler
 // ---------------------
@@ -116,5 +115,3 @@ chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) =
   // Clear the mapping for this notification.
   delete duplicateNotifications[notificationId];
 });
-
-
