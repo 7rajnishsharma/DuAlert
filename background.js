@@ -32,3 +32,62 @@ chrome.downloads.onCreated.addListener(function(downloadItem) {
     }
   });
 });
+
+// ---------------------
+// Duplicate Check on Download Completion (Advanced Content Check)
+// ---------------------
+chrome.downloads.onChanged.addListener(function(delta) {
+  if (delta.state && delta.state.current === "complete") {
+    chrome.downloads.search({ id: delta.id }, async function(items) {
+      if (items && items.length > 0) {
+        let item = items[0];
+        // Compute the hash using the file's URL.
+        let hash = await computeHashFromUrl(item.url);
+        if (!hash) {
+          console.error("Failed to compute hash for download: " + item.filename);
+          // Fallback to using URL + fileSize.
+          hash = item.url + "_" + item.fileSize;
+        }
+        let identifier = hash;
+        // Update the download metadata in storage and check for duplicates.
+        chrome.storage.local.get({ downloads: [] }, function(data) {
+          let downloads = data.downloads;
+          let duplicate = downloads.find(entry => entry.identifier === identifier);
+          if (duplicate) {
+            // If a duplicate is found (and it's not the same as the current download),
+            // show a notification if one hasn't been shown already.
+            if (duplicate.id !== item.id) {
+              chrome.notifications.create("", {
+                type: "basic",
+                iconUrl: "icons/icon48.png",
+                title: "Duplicate Download Detected",
+                message: `The file "${item.filename}" appears to be a duplicate of "${duplicate.filename}".`,
+                buttons: [
+                  { title: "Open Existing File" }
+                ],
+                priority: 2
+              }, function(notificationId) {
+                duplicateNotifications[notificationId] = {
+                  newId: item.id,
+                  existingId: duplicate.id
+                };
+              });
+            }
+          } else {
+            // No duplicate found; save this download's metadata, including its download ID, URL, and file path.
+            downloads.push({
+              id: item.id,                // Download ID
+              url: item.url,              // Download URL
+              identifier: identifier,     // Content hash (or fallback identifier)
+              filename: item.filename,    // Filename (assumed to include the local file path)
+              fileSize: item.fileSize,
+              downloadTime: Date.now()
+            });
+            chrome.storage.local.set({ downloads: downloads });
+          }
+        });
+      }
+    });
+  }
+});
+
