@@ -68,7 +68,7 @@ DuAlert follows a **Freemium Model**:
   - **Core Duplicate Detection:**  
     Use basic duplicate detection based on file metadata and SHA-256 hash checks.
   - **Local Storage:**  
-    Store duplicate records locally on your device with a usage limit (e.g., up to 100 duplicate checks per month).
+    Store duplicate records locally on your device with a usage limit (e.g., up to 30 duplicate checks per month).
   - **Basic Notifications:**  
     Receive alerts when a duplicate is detected, with an option to open the existing file.
 
@@ -80,7 +80,7 @@ DuAlert follows a **Freemium Model**:
   - **Unlimited Usage:**  
     Remove or significantly increase the monthly duplicate check limit.
   - **Pricing:**  
-    Approximately $4.99–$9.99/month based on market research.
+    Approximately $2.99–$4.99/month based on market research.
 
 - **Enterprise Tier:**
   - **Custom Integrations & Admin Dashboard:**  
@@ -126,4 +126,3 @@ For any questions, suggestions, or contributions, please contact us via [your em
 
 ---
 
-*DuAlert helps you avoid redundant downloads, saving storage space and keeping your digital files organized—all with the power of advanced file hashing and seamless integration with your computer’s drive.*
